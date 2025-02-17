@@ -10,7 +10,8 @@
       <button id="btnGetData">Get Data</button>
       <pre id="preOutput"></pre>
       <script>
-        const baseUrl = "https://studentfunctionmze.azurewebsites.net";
+        const baseUrl = "https://fifagamesrd.azurewebsites.net";
+        //const baseUrl = "http://localhost:7071";
 
         var showResponse = function (object) {
           document.querySelector("#preOutput").innerHTML = JSON.stringify(
@@ -26,7 +27,7 @@
         });
 
         var getData = async function () {
-          var url = baseUrl + "/api/students";
+          var url = baseUrl + "/api/fifagames";
 
           await fetch(url)
             .then((response) => {
