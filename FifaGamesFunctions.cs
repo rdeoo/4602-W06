@@ -44,4 +44,26 @@ public class FifaGamesFunctions
 
         return response;
     }
+
+    [Function("GetFifaGamesById")]
+    public HttpResponseData GetFifaGamesById
+    (
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "fifagames/{id}")] HttpRequestData req,
+        int id
+    )
+    {
+        _logger.LogInformation("C# HTTP GET/posts trigger function processed a request.");
+        var game = _context.Games.FindAsync(id).Result;
+        if(game == null)
+        {
+            var response = req.CreateResponse(HttpStatusCode.NotFound);
+            response.Headers.Add("Content-Type", "application/json");
+            response.WriteStringAsync("Not Found");
+            return response;
+        }
+        var response2 = req.CreateResponse(HttpStatusCode.OK);
+        response2.Headers.Add("Content-Type", "application/json");
+        response2.WriteStringAsync(JsonConvert.SerializeObject(game));
+        return response2;
+    }
 }
